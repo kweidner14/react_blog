@@ -8,12 +8,13 @@ class FullPost extends Component {
     loadedPost: null
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.id) {
+  componentDidMount() {
+    console.log(this.props);
+    if (this.props.match.params.id) {
       //makes GET req if there is no loadedPost,
       // or if there is a loadedPost && it has a different id than the current post
       if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-        axios.get('/posts/' + this.props.id)
+        axios.get('/posts/' + this.props.match.params.id)
             .then(response => {
               this.setState({
                 loadedPost: response.data
@@ -22,6 +23,8 @@ class FullPost extends Component {
       }
     }
   }
+
+
 
   deletePostHandler = () => {
     axios.delete('/posts/' + this.props.id)
