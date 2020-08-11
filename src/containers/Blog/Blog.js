@@ -7,7 +7,7 @@ import NewPost from "./NewPost/NewPost";
 
 class Blog extends Component {
   state= {
-    auth: false
+    auth: true
   }
 
   render () {
@@ -17,7 +17,7 @@ class Blog extends Component {
           <nav>
             <ul>
               <li><NavLink
-                  to="/posts/"
+                  to="/posts"
                   exact
                   activeClassName="my-active"
                   activeStyle={{
@@ -40,13 +40,10 @@ class Blog extends Component {
 
         {/*Switch ensures only 1 route will be loaded*/}
         <Switch>
-          { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
+          <Route path="/new-post" component={NewPost} />
           <Route path="/posts" component={Posts} />
-
-          {/*Catch-all route to catch all unknown routes. does not work with redirect*/}
-          <Route render={() => <h1>Not found</h1>}/>
-          {/*<Redirect from="/" to="/posts"/>*/}
-          {/*<Route path="/" component={Posts} />*/}
+          <Redirect from="/" to="/posts" />
+          {/* <Route path="/" component={Posts} /> */}
         </Switch>
 
       </div>
