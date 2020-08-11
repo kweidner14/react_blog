@@ -6,6 +6,9 @@ import Posts from './Posts/Posts'
 import NewPost from "./NewPost/NewPost";
 
 class Blog extends Component {
+  state= {
+    auth: false
+  }
 
   render () {
     return (
@@ -37,9 +40,12 @@ class Blog extends Component {
 
         {/*Switch ensures only 1 route will be loaded*/}
         <Switch>
-          <Route path="/new-post" component={NewPost} />
+          { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
           <Route path="/posts" component={Posts} />
-          <Redirect from="/" to="/posts"/>
+
+          {/*Catch-all route to catch all unknown routes. does not work with redirect*/}
+          <Route render={() => <h1>Not found</h1>}/>
+          {/*<Redirect from="/" to="/posts"/>*/}
           {/*<Route path="/" component={Posts} />*/}
         </Switch>
 
